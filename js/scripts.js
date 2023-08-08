@@ -75,3 +75,21 @@ let pokemonList = [
         type: ['bug', 'poison']
     }
 ]
+
+// Displays name and height of Pokémon with a note if they are taller than 1 meter
+for (let i = 0; i < pokemonList.length; i++) {
+    
+    let note; 
+        if (pokemonList[i].height > 1) {
+            note = ' - So big!';
+            } else {
+                note = ''
+            } 
+    
+    document.write(
+        pokemonList[i].name + 
+        ' (height: ' + 
+        pokemonList[i].height + ')' +
+        note + '<br/>' + '<br/>'
+        )
+}
