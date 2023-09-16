@@ -1,5 +1,5 @@
  let pokemonRepository = (function() {  
-    var pokemonList = [
+    let repository = [
         {
             name: 'Bulbasaur', 
             height: 0.7, 
@@ -77,35 +77,43 @@
         }
     ];
 
+    //lets new pokemon be added to repository//
     function add(pokemon) {
-        pokemonList.push(pokemon);
+        repository.push(pokemon);
     }
 
     function getAll() {
-        return pokemonList;
+        return repository;
+    }
+
+    //populates .pokemon-list with buttons labeled with each pokemon's name from repository//
+    function addListItem(pokemon) {
+        let pokemonList = document.querySelector(".pokemon-list");
+        let listItem = document.createElement("li");
+        let button = document.createElement("button");
+        button.innerText = pokemon.name;
+        button.classList.add("button-class");
+        button.addEventListener('click', function (event) {
+        console.log(event);
+        showDetails(pokemon);
+        });
+        listItem.appendChild(button);
+        pokemonList.appendChild(listItem);
+    }
+
+    function showDetails(pokemon) {
+        console.log(pokemon)
     }
 
     return {
         add: add,
-        getAll: getAll
+        getAll: getAll,
+        addListItem: addListItem,
+        showDetails: showDetails
     };
 })();
 
-// Displays name and height of Pokémon with a note if they are taller than 1 meter
-function printArrayDetails(list){  
-        let note; 
-            if (list.height > 1) {
-                note = ' - So big!';
-                } else {
-                    note = ''
-                } 
-    
-        document.write(
-            list.name + 
-            ' (height: ' + 
-            list.height + ')' +
-            note + '<br/>' + '<br/>'
-            )
-}
-
-pokemonRepository.getAll().forEach(printArrayDetails);
+pokemonRepository.getAll().forEach(function(pokemon) {
+    pokemonRepository.addListItem(pokemon);
+    pokemonRepository.showDetails(pokemon);
+});
