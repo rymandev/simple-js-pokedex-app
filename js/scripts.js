@@ -120,7 +120,7 @@
       listItem.classList.add("li")
       let button = document.createElement("button");
       button.innerText = pokemon.name;
-      button.classList.add("button-class");
+      button.classList.add("btn btn-primary");
       button.addEventListener("click", function (event) {
       console.log(event);
       showDetails(pokemon);
