@@ -1,4 +1,4 @@
- let pokemonRepository = (function() {
+let pokemonRepository = (function() {
   let modalContainer = document.querySelector("#modal-container");  
   let repository = [];
 
@@ -47,6 +47,26 @@
     });
   };
 
+  //populates .pokemon-list with buttons labeled with each pokemon"s name from repository//
+  function addListItem(pokemon) {
+      let pokemonList = document.querySelector(".pokemon-list");
+      pokemonList.classList.add("ul")
+      pokemonList.classList.add("list-group")
+      let listItem = document.createElement("li");
+      listItem.classList.add("li")
+      listItem.classList.add("list-group-item")
+      let button = document.createElement("button");
+      button.innerText = pokemon.name;
+      button.classList.add("btn");
+      button.classList.add("btn-primary");
+      button.addEventListener("click", function (event) {
+      console.log(event);
+      showDetails(pokemon);
+      });
+      listItem.appendChild(button);
+      pokemonList.appendChild(listItem);
+  };
+
   //Consol logs and shows the details of the selected pokemon//
   function showDetails(pokemon) {
     loadDetails(pokemon).then(function(title, text) {
@@ -63,11 +83,13 @@
 
       //Add new div inside modalContainer
       let modal = document.createElement("div");
-      modal.classList.add("modal");
+      // modal.classList.add("modal");
+      modal.classList.add("modal-dialog");
 
       // Add the new modal content
       let closeButtonElement = document.createElement("button");
-      closeButtonElement.classList.add("modal-close");
+      closeButtonElement.classList.add("btn-close");
+      closeButtonElement.dataset.bsDismiss = "modal";
       closeButtonElement.innerText = "CLOSE";
       closeButtonElement.addEventListener("click", hideModal);
 
@@ -76,6 +98,7 @@
 
       let contentElement = document.createElement("p");
       contentElement.innerText = text;
+      contentElement.classList.add("modal-content")
 
       modal.appendChild(closeButtonElement);
       modal.appendChild(titleElement);
@@ -109,24 +132,6 @@
     document.querySelector("#show-modal").addEventListener("click", () => {
       showModal();
     });
-  };
-
-
-  //populates .pokemon-list with buttons labeled with each pokemon"s name from repository//
-  function addListItem(pokemon) {
-      let pokemonList = document.querySelector(".pokemon-list");
-      pokemonList.classList.add("ul")
-      let listItem = document.createElement("li");
-      listItem.classList.add("li")
-      let button = document.createElement("button");
-      button.innerText = pokemon.name;
-      button.classList.add("btn btn-primary");
-      button.addEventListener("click", function (event) {
-      console.log(event);
-      showDetails(pokemon);
-      });
-      listItem.appendChild(button);
-      pokemonList.appendChild(listItem);
   };
 
   return {
